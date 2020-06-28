@@ -16,6 +16,7 @@ import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnToast;
+    private Button btnViewThird;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
 
     @Override
@@ -33,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
                 showToast(v);
             }
         });
+
+        btnViewThird = findViewById(R.id.btnViewThird);
+        btnViewThird.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void showToast(View view) {
@@ -48,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAnimations(Style.ANIMATIONS_POP).show();*/
 
         Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra("textVie2w", TEXTFROMFIRSTVIEW);
+        intent.putExtra("textView", TEXTFROMFIRSTVIEW);
         startActivity(intent);
     }
 
