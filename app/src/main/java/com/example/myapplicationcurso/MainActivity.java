@@ -2,10 +2,19 @@ package com.example.myapplicationcurso;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Button btnToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,39 +23,67 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         System.out.println("onCreate");
+
+        btnToast = findViewById(R.id.btnToast);
+        btnToast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast(v);
+            }
+        });
     }
 
-    @Override protected void onStart() {
+    public void showToast(View view) {
+        // Toast Whit library
+        SuperActivityToast.create(this, new Style(), Style.TYPE_BUTTON)
+                .setButtonText("onResume")
+                .setOnButtonClickListener("good_tag_name", null, null)
+                .setProgressBarColor(Color.WHITE)
+                .setText("Ciclo de vida Android")
+                .setDuration(Style.DURATION_LONG)
+                .setFrame(Style.FRAME_LOLLIPOP)
+                .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE))
+                .setAnimations(Style.ANIMATIONS_POP).show();
+    }
+
+    @Override
+    protected void onStart() {
         super.onStart();
         System.out.println("onStart");
         Toast.makeText(this, "onStart", Toast.LENGTH_LONG).show();
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         System.out.println("onResume");
-        Toast.makeText(this, "onResume", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+
     }
 
-    @Override protected void onPause() {
+    @Override
+    protected void onPause() {
         System.out.println("onPause");
         Toast.makeText(this, "onPause", Toast.LENGTH_LONG).show();
         super.onPause();
     }
 
-    @Override protected void onStop() {
+    @Override
+    protected void onStop() {
         super.onStop();
         System.out.println("onStop");
         Toast.makeText(this, "onStop", Toast.LENGTH_LONG).show();
     }
 
-    @Override protected void onRestart() {
+    @Override
+    protected void onRestart() {
         super.onRestart();
         System.out.println("onRestart");
         Toast.makeText(this, "onRestart", Toast.LENGTH_LONG).show();
     }
 
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         System.out.println("onDestroy");
         Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
