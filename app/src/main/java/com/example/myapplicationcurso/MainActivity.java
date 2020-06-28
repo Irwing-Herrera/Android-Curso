@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         System.out.println("onStart");
+        // Respuesta en consola filtrado por etiqueta
+        // Entrar a la pestaña de Logcat
+        //   Seleccionar Info
+        //     Filtrar por etiqueta
+        Log.i("consola","Entre al onStart");
         Toast.makeText(this, "onStart", Toast.LENGTH_LONG).show();
     }
 
