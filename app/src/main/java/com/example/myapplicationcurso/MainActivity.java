@@ -2,6 +2,7 @@ package com.example.myapplicationcurso;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnToast;
+    private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showToast(View view) {
-        // Toast Whit library
+    private void showToast(View view) {
+        /* Toast Whit library
         SuperActivityToast.create(this, new Style(), Style.TYPE_BUTTON)
                 .setButtonText("onResume")
                 .setOnButtonClickListener("good_tag_name", null, null)
@@ -43,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
                 .setDuration(Style.DURATION_LONG)
                 .setFrame(Style.FRAME_LOLLIPOP)
                 .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE))
-                .setAnimations(Style.ANIMATIONS_POP).show();
+                .setAnimations(Style.ANIMATIONS_POP).show();*/
+
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra("textVie2w", TEXTFROMFIRSTVIEW);
+        startActivity(intent);
     }
 
     @Override
