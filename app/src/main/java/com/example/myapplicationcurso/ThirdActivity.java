@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,6 +25,7 @@ public class ThirdActivity extends AppCompatActivity {
     private ImageButton imageButtonCamera;
 
     private final int PHONE_CALL_CODE = 100;
+    private final int PICTURE_FROM_CAMERA = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class ThirdActivity extends AppCompatActivity {
                                 // Navegar a pantalla de permisos
                                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                                 intent.addCategory(intent.CATEGORY_DEFAULT);
-                                intent.setData(Uri.parse("package:"+ getPackageName()));
+                                intent.setData(Uri.parse("package:" + getPackageName()));
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
@@ -92,16 +94,40 @@ public class ThirdActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String webSite = editTextWeb.getText().toString();
                 if (webSite != null && !webSite.isEmpty()) {
-                    // Comprobar version de Android
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("http://"+ webSite));
+                    intent.setData(Uri.parse("http://" + webSite));
                     startActivity(intent);
                 } else {
                     Toast.makeText(ThirdActivity.this, "Insert a website.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        // setOnClickListener de camara
+        imageButtonCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivityForResult(intent,PICTURE_FROM_CAMERA);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PICTURE_FROM_CAMERA:
+                if (resultCode == Activity.RESULT_OK) {
+                    String result = data.toUri(0);
+                    Toast.makeText(ThirdActivity.this, "Result:" + result, Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(ThirdActivity.this, "There was an error with the picture, try again.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
