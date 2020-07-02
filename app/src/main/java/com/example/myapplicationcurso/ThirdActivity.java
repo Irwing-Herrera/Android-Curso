@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -39,14 +40,38 @@ public class ThirdActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String phoneNumber = editTextPhone.getText().toString();
-                if (phoneNumber != null) {
+                if (phoneNumber != null && !phoneNumber.isEmpty()) {
                     // Comprobar version de Android
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        // Permisos en tiempo de ejecucion
-                        requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PHONE_CALL_CODE);
+
+                        // Comprobrar si ha aceptado, no ha aceptado o nunca se le ha preguntado
+                        if (_checkPermission(Manifest.permission.CALL_PHONE)) {
+                            // Ha aceptado
+                            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                            startActivity(intent);
+                        } else {
+                            // Ha denegado o es la primera vez que se le pregunta
+                            if (!shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE)) {
+                                // No se le ha preguntado aun
+                                requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PHONE_CALL_CODE);
+                            } else {
+                                // Ha denegado
+                                Toast.makeText(ThirdActivity.this, "¨PLease, enable the request permission.", Toast.LENGTH_SHORT).show();
+                                // Navegar a pantalla de permisos
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                intent.addCategory(intent.CATEGORY_DEFAULT);
+                                intent.setData(Uri.parse("package:"+ getPackageName()));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                startActivity(intent);
+                            }
+                        }
                     } else {
                         _olderVersions(phoneNumber);
                     }
+                } else {
+                    Toast.makeText(ThirdActivity.this, "Insert a phone number.", Toast.LENGTH_SHORT).show();
                 }
             }
 
