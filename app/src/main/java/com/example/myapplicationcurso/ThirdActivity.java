@@ -36,6 +36,7 @@ public class ThirdActivity extends AppCompatActivity {
         imageButtonWeb = findViewById(R.id.imageButtonWeb);
         imageButtonCamera = findViewById(R.id.imageButtonCamera);
 
+        // setOnClickListener de llamada
         imageButtonPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +82,23 @@ public class ThirdActivity extends AppCompatActivity {
                     startActivity(intentCall);
                 } else {
                     Toast.makeText(ThirdActivity.this, "You decline the access", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // setOnClickListener de navegador Web
+        imageButtonWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String webSite = editTextWeb.getText().toString();
+                if (webSite != null && !webSite.isEmpty()) {
+                    // Comprobar version de Android
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("http://"+ webSite));
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(ThirdActivity.this, "Insert a website.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
