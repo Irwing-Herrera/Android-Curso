@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // agregar icon a actionBar
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
         Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         System.out.println("onCreate");
 
