@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -67,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         nombres.add("Charly");
 
         // Adaptador, la forma visual en que mostraremos nuestros datos
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombres);
+        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombres);
         // Enlazamos el adaptador con el List View
-        listViewDatos.setAdapter(adapter);
+        // listViewDatos.setAdapter(adapter);
 
         listViewDatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Seleccionado: " + nombres.get(position), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // ENlazmos con nuestro adaptador perzonalizado
+        MyAdpater myAdpater = new MyAdpater(this, R.layout.itemlayout, nombres);
+        listViewDatos.setAdapter(myAdpater);
     }
 
     private void showToast(View view) {
@@ -144,3 +150,4 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
     }
 }
+
