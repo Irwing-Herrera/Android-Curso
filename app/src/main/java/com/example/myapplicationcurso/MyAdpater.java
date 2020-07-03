@@ -43,20 +43,31 @@ public class MyAdpater extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Copiamos la vista
-        View view = convertView;
+        // View Holder Pattern
+        ViewHolder holder;
 
-        // Vinculamos con el layout Item
-        LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-        view = layoutInflater.inflate(R.layout.itemlayout, null);
+        // se hace para no buscar en cada iteracion el txtNombre en R
+        if (convertView == null) {
+            // Vinculamos con el layout Item
+            LayoutInflater layoutInflater = LayoutInflater.from(this.context);
+            convertView = layoutInflater.inflate(R.layout.itemlayout, null);
+
+            holder = new ViewHolder();
+            // Agregamos nombre a variable de UI
+            holder.nameTextView = convertView.findViewById(R.id.txtNombre);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
         // extraemos nombre de cada posicion
         String currentName = names.get(position);
+        holder.nameTextView.setText(currentName);
 
-        // Agregamos nombre a variable de UI
-        TextView textViewNombre = view.findViewById(R.id.txtNombre);
-        textViewNombre.setText(currentName);
+        return convertView;
+    }
 
-        return view;
+    static class ViewHolder {
+        private TextView nameTextView;
     }
 }
