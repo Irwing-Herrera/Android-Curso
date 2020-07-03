@@ -7,18 +7,26 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperActivityToast;
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnToast;
     private Button btnViewThird;
+    private ListView listViewDatos;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
+    private List<String> nombres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        listViewDatos = findViewById(R.id.listDatos);
+
+        nombres = new ArrayList<String>();
+        nombres.add("Irwing");
+        nombres.add("Allison");
+        nombres.add("Alexis");
+        nombres.add("Gionathan");
+        nombres.add("Charly");
+
+        // Adaptador, la forma visual en que mostraremos nuestros datos
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombres);
+        // Enlazamos el adaptador con el List View
+        listViewDatos.setAdapter(adapter);
+
+        listViewDatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "Seleccionado: " + nombres.get(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
