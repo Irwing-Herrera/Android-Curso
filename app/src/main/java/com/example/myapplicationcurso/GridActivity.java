@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,8 +51,12 @@ public class GridActivity extends AppCompatActivity {
         // Enlazamos con nuestro adaptador personalizadp
         myAdpater = new MyAdpater(this, R.layout.grid_item, names);
         gridView.setAdapter(myAdpater);
+
+        // registra context menu
+        registerForContextMenu(gridView);
     }
 
+    // Inflamos el layout de menu de opciones
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -59,6 +64,7 @@ public class GridActivity extends AppCompatActivity {
         return true;
     }
 
+    // Seleccionames una opcion del menu de opciones
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -70,6 +76,33 @@ public class GridActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // Inflamos el layout del context menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+
+        AdapterView.AdapterContextMenuInfo seleccionado = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        menu.setHeaderTitle(this.names.get(seleccionado.position));
+
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    // Manejamos eventos click en el context menu
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo seleccionado = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+            case R.id.delete_item:
+                this.names.remove(seleccionado.position);
+                this.myAdpater.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 }
