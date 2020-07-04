@@ -3,29 +3,22 @@ package com.example.myapplicationcurso;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
     private Button btnToast;
     private Button btnViewThird;
+    private Button btnGridView;
     private ListView listViewDatos;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
     private List<String> nombres;
@@ -54,7 +47,16 @@ public class MainActivity extends AppCompatActivity {
         btnViewThird.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
+                Intent intent = new Intent(ListActivity.this, ThirdActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnGridView = findViewById(R.id.btnViewGridActivity);
+        btnGridView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, GridActivity.class);
                 startActivity(intent);
             }
         });
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         listViewDatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Seleccionado: " + nombres.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListActivity.this, "Seleccionado: " + nombres.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 

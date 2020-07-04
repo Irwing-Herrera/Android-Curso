@@ -50,7 +50,7 @@ public class MyAdpater extends BaseAdapter {
         if (convertView == null) {
             // Vinculamos con el layout Item
             LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-            convertView = layoutInflater.inflate(R.layout.itemlayout, null);
+            convertView = layoutInflater.inflate(this.layout, null);
 
             holder = new ViewHolder();
             // Agregamos nombre a variable de UI
