@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class ListActivity extends AppCompatActivity {
     private Button btnToast;
     private Button btnViewThird;
     private Button btnGridView;
+    private Button btnViewRecyclerView;
+
     private ListView listViewDatos;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
     private List<String> nombres;
@@ -57,6 +61,15 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, GridActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnViewRecyclerView = findViewById(R.id.btnViewRecyclerView);
+        btnViewRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, RecyclerActivity.class);
                 startActivity(intent);
             }
         });
