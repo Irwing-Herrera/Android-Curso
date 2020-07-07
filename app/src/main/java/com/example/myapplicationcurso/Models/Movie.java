@@ -2,8 +2,8 @@ package com.example.myapplicationcurso.Models;
 
 public class Movie {
 
-    private String name;
-    private int poster;
+    public String name;
+    public int poster;
 
     public  Movie() {}
 
