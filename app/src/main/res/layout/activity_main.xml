@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:text="navergar a GridView"
+        android:text="GridView"
         android:textColor="#FFFFFF"/>
 
     <Button
@@ -35,7 +35,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:text="Navegar a RecyclerView"
+        android:text="RecyclerView"
+        android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/btnViewCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="CardView"
         android:textColor="#FFFFFF"/>
 
     <ListView

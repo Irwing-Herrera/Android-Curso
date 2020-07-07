@@ -3,6 +3,7 @@ package com.example.myapplicationcurso.RecyclerView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +22,7 @@ import com.example.myapplicationcurso.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerActivity extends AppCompatActivity {
+public class RecyclerActivity extends AppCompatActivity implements MyAdapterRecyclerView.OnItemClickListener {
 
     private List<String> names;
 
@@ -29,6 +30,11 @@ public class RecyclerActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private int _counter = 0;
+
+    @Override
+    public void OnItemClick(String name, int position) {
+        _deleteName(position);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +46,10 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this);
 
-        adapter = new MyAdapterRecyclerView(names, R.layout.recycler_view_item, new MyAdapterRecyclerView.OnItemClickListener() {
-            @Override
-            public void OnItemClick(String name, int position) {
-                _deleteName(position);
-            }
-        });
+        // Cambiar a gridView y con dos columnas
+        layoutManager = new GridLayoutManager(this, 2);
+
+        adapter = new MyAdapterRecyclerView(names, R.layout.recycler_view_item, this);
 
         // Activar solo si se sabe que el contenedor no a a cambiar de tamaño (performance)
         recyclerView.setHasFixedSize(true);
@@ -55,6 +59,8 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

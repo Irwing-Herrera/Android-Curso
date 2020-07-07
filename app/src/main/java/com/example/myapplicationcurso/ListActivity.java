@@ -1,7 +1,9 @@
 package com.example.myapplicationcurso;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.myapplicationcurso.CardView.CardViewActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class ListActivity extends AppCompatActivity {
     private Button btnViewThird;
     private Button btnGridView;
     private Button btnViewRecyclerView;
+    private Button btnCardView;
 
     private ListView listViewDatos;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
@@ -74,6 +78,15 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+        btnCardView = findViewById(R.id.btnViewCardView);
+        btnCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, CardViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
         listViewDatos = findViewById(R.id.listDatos);
 
         nombres = new ArrayList<String>();
@@ -114,7 +127,8 @@ public class ListActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SecondActivity.class);
         intent.putExtra("textView", TEXTFROMFIRSTVIEW);
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     @Override
@@ -163,6 +177,17 @@ public class ListActivity extends AppCompatActivity {
         super.onDestroy();
         System.out.println("onDestroy");
         Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("Codigo de resultado" + resultCode);
+
+        if (resultCode == Activity.RESULT_OK) {
+            int info = data.getIntExtra("resultado", 0);
+            System.out.println("El resultado es: " + info);
+        }
     }
 }
 
