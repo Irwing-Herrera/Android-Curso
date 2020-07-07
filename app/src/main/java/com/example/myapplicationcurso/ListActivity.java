@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myapplicationcurso.CardView.CardViewActivity;
+import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ListActivity extends AppCompatActivity {
     private Button btnGridView;
     private Button btnViewRecyclerView;
     private Button btnCardView;
+    private Button btnViewRecyclerCardView;
 
     private ListView listViewDatos;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
@@ -83,6 +85,15 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, CardViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnViewRecyclerCardView = findViewById(R.id.btnViewRecyclerCardView);
+        btnViewRecyclerCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, RecyclerCardActivity.class);
                 startActivity(intent);
             }
         });
