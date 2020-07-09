@@ -1,12 +1,17 @@
 package com.example.myapplicationcurso;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,13 +20,17 @@ import android.widget.Toast;
 
 import com.example.myapplicationcurso.BoardApp.Activities.BoardActivity;
 import com.example.myapplicationcurso.CardView.CardViewActivity;
+import com.example.myapplicationcurso.ListView.ListViewActivity;
+import com.example.myapplicationcurso.Login.LoginActivity;
 import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences preferences;
 
     private Button btnToast;
     private Button btnViewThird;
@@ -29,16 +38,17 @@ public class ListActivity extends AppCompatActivity {
     private Button btnViewRecyclerView;
     private Button btnCardView;
     private Button btnViewRecyclerCardView;
+    private Button btnListView;
     private Button btnRealm;
 
-    private ListView listViewDatos;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
-    private List<String> nombres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
 
         // agregar icon a actionBar
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -59,7 +69,7 @@ public class ListActivity extends AppCompatActivity {
         btnViewThird.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListActivity.this, ThirdActivity.class);
+                Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
                 startActivity(intent);
             }
         });
@@ -68,7 +78,7 @@ public class ListActivity extends AppCompatActivity {
         btnGridView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListActivity.this, GridActivity.class);
+                Intent intent = new Intent(MainActivity.this, GridActivity.class);
                 startActivity(intent);
             }
         });
@@ -77,7 +87,7 @@ public class ListActivity extends AppCompatActivity {
         btnViewRecyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListActivity.this, RecyclerActivity.class);
+                Intent intent = new Intent(MainActivity.this, RecyclerActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +96,7 @@ public class ListActivity extends AppCompatActivity {
         btnCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListActivity.this, CardViewActivity.class);
+                Intent intent = new Intent(MainActivity.this, CardViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -95,7 +105,16 @@ public class ListActivity extends AppCompatActivity {
         btnViewRecyclerCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListActivity.this, RecyclerCardActivity.class);
+                Intent intent = new Intent(MainActivity.this, RecyclerCardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnListView = findViewById(R.id.btnListView);
+        btnListView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ListViewActivity.class);
                 startActivity(intent);
             }
         });
@@ -104,55 +123,50 @@ public class ListActivity extends AppCompatActivity {
         btnRealm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListActivity.this, BoardActivity.class);
+                Intent intent = new Intent(MainActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
         });
-
-        listViewDatos = findViewById(R.id.listDatos);
-
-        nombres = new ArrayList<String>();
-        nombres.add("Irwing");
-        nombres.add("Allison");
-        nombres.add("Alexis");
-        nombres.add("Gionathan");
-        nombres.add("Charly");
-
-        // Adaptador, la forma visual en que mostraremos nuestros datos
-        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nombres);
-        // Enlazamos el adaptador con el List View
-        // listViewDatos.setAdapter(adapter);
-
-        listViewDatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListActivity.this, "Seleccionado: " + nombres.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // ENlazmos con nuestro adaptador perzonalizado
-        MyAdpater myAdpater = new MyAdpater(this, R.layout.itemlayout, nombres);
-        listViewDatos.setAdapter(myAdpater);
     }
 
     private void showToast(View view) {
-        /* Toast Whit library
-        SuperActivityToast.create(this, new Style(), Style.TYPE_BUTTON)
-                .setButtonText("onResume")
-                .setOnButtonClickListener("good_tag_name", null, null)
-                .setProgressBarColor(Color.WHITE)
-                .setText("Ciclo de vida Android")
-                .setDuration(Style.DURATION_LONG)
-                .setFrame(Style.FRAME_LOLLIPOP)
-                .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE))
-                .setAnimations(Style.ANIMATIONS_POP).show();*/
-
         Intent intent = new Intent(this, SecondActivity.class);
         intent.putExtra("textView", TEXTFROMFIRSTVIEW);
-        //startActivity(intent);
         startActivityForResult(intent,1);
     }
 
+    private void _logOut() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void _removeSharedPreferences() {
+        preferences.edit().clear().apply();
+    }
+
+    // Crear menu de opciones
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    // Click Listener de seleccion de opcion de menu
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                _logOut();
+                return true;
+            case R.id.menu_forget_logout:
+                _removeSharedPreferences();
+                _logOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -170,7 +184,6 @@ public class ListActivity extends AppCompatActivity {
         super.onResume();
         System.out.println("onResume");
         //Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.myapplicationcurso;
 
 import android.app.Application;
+import android.os.SystemClock;
 
 import com.example.myapplicationcurso.BoardApp.Models.Alumno;
 import com.example.myapplicationcurso.BoardApp.Models.Escuela;
@@ -21,6 +22,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        SystemClock.sleep(3000);
 
         Realm.init(this);
         _setUpRealmConfig();

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ListActivity">
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnToast"
@@ -52,6 +52,14 @@
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         android:text="RecyclerView con CardView"
+        android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/btnListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="ListView"
         android:textColor="#FFFFFF"/>
 
     <Button

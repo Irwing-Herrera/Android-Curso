@@ -12,59 +12,65 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BoardApp.Activities.StudentActivity"></activity>
+        <activity android:name=".ListView.ListViewActivity" />
+        <activity android:name=".BoardApp.Activities.StudentActivity" />
         <activity
             android:name=".BoardApp.Activities.BoardActivity"
-            android:parentActivityName=".ListActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".RecyclerCardView.RecyclerCardActivity"
-            android:parentActivityName=".ListActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".CardView.CardViewActivity"
-            android:parentActivityName=".ListActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".RecyclerView.RecyclerActivity"
-            android:parentActivityName=".ListActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".GridActivity"
-            android:parentActivityName=".ListActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".ThirdActivity"
-            android:parentActivityName=".ListActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".SecondActivity"
-            android:parentActivityName=".ListActivity" />
-        <activity android:name=".ListActivity">
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login.LoginActivity" />
+        <activity
+            android:name=".SplashActivity.SplashActivity"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
