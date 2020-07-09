@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.myapplicationcurso.BoardApp.Activities.BoardActivity;
 import com.example.myapplicationcurso.CardView.CardViewActivity;
 import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
@@ -28,6 +29,7 @@ public class ListActivity extends AppCompatActivity {
     private Button btnViewRecyclerView;
     private Button btnCardView;
     private Button btnViewRecyclerCardView;
+    private Button btnRealm;
 
     private ListView listViewDatos;
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
@@ -94,6 +96,15 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, RecyclerCardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRealm = findViewById(R.id.btnRealm);
+        btnRealm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
         });

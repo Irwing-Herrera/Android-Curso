@@ -54,6 +54,14 @@
         android:text="RecyclerView con CardView"
         android:textColor="#FFFFFF"/>
 
+    <Button
+        android:id="@+id/btnRealm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Realm (Persistencia de Datos)"
+        android:textColor="#FFFFFF"/>
+
     <ListView
         android:id="@+id/listDatos"
         android:layout_width="match_parent"
