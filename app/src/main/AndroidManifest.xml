@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Tabs.Activities.TabsActivity"></activity>
         <activity android:name=".ListView.ListViewActivity" />
         <activity android:name=".BoardApp.Activities.StudentActivity" />
         <activity
@@ -58,7 +59,7 @@
         </activity>
         <activity
             android:name=".MyFragments.Activities.MyFragmentsActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SecondActivity"
             android:parentActivityName=".MainActivity" />

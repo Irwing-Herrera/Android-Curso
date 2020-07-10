@@ -82,4 +82,12 @@
         android:text="Fragments"
         android:textColor="#FFFFFF"/>
 
+    <Button
+        android:id="@+id/btnTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Tabs"
+        android:textColor="#FFFFFF"/>
+
 </LinearLayout>

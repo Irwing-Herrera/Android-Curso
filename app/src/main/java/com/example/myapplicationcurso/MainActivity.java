@@ -24,6 +24,7 @@ import com.example.myapplicationcurso.Login.LoginActivity;
 import com.example.myapplicationcurso.MyFragments.Activities.MyFragmentsActivity;
 import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
+import com.example.myapplicationcurso.Tabs.Activities.TabsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnListView;
     private Button btnRealm;
     private Button btnFragments;
+    private Button btnTabs;
 
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
 
@@ -135,6 +137,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MyFragmentsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnTabs = findViewById(R.id.btnTabs);
+        btnTabs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TabsActivity.class);
                 startActivity(intent);
             }
         });
