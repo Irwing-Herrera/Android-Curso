@@ -3,6 +3,7 @@ package com.example.myapplicationcurso;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,25 +14,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myapplicationcurso.BoardApp.Activities.BoardActivity;
 import com.example.myapplicationcurso.CardView.CardViewActivity;
 import com.example.myapplicationcurso.ListView.ListViewActivity;
 import com.example.myapplicationcurso.Login.LoginActivity;
+import com.example.myapplicationcurso.MyFragments.Activities.MyFragmentsActivity;
 import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
 
+    private Toolbar toolbar;
     private Button btnToast;
     private Button btnViewThird;
     private Button btnGridView;
@@ -40,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnViewRecyclerCardView;
     private Button btnListView;
     private Button btnRealm;
+    private Button btnFragments;
 
     private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
 
@@ -51,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
 
         // agregar icon a actionBar
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        //getSupportActionBar().setDisplayShowCustomEnabled(true);
+        //getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         System.out.println("onCreate");
@@ -127,12 +129,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnFragments = findViewById(R.id.btnFragments);
+        btnFragments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MyFragmentsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void showToast(View view) {
         Intent intent = new Intent(this, SecondActivity.class);
         intent.putExtra("textView", TEXTFROMFIRSTVIEW);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
     }
 
     private void _logOut() {
@@ -167,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -175,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         // Entrar a la pestaña de Logcat
         //   Seleccionar Info
         //     Filtrar por etiqueta
-        Log.i("consola","Entre al onStart");
+        Log.i("consola", "Entre al onStart");
         Toast.makeText(this, "onStart", Toast.LENGTH_LONG).show();
     }
 

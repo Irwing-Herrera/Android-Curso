@@ -6,6 +6,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <Button
         android:id="@+id/btnToast"
         android:layout_width="match_parent"
@@ -70,8 +74,12 @@
         android:text="Realm (Persistencia de Datos)"
         android:textColor="#FFFFFF"/>
 
-    <ListView
-        android:id="@+id/listDatos"
+    <Button
+        android:id="@+id/btnFragments"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Fragments"
+        android:textColor="#FFFFFF"/>
+
 </LinearLayout>
