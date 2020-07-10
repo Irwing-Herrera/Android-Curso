@@ -6,6 +6,10 @@
     android:orientation="vertical"
     tools:context=".RecyclerView.RecyclerActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.example.myapplicationcurso.RecyclerCardView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,8 +36,11 @@ public class RecyclerCardActivity extends AppCompatActivity implements MyAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_card);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         movies = _getAllMovies();
-        recyclerViewMovies = (RecyclerView) findViewById(R.id.recyclerViewMovies);
+        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
         myLayoutManager = new LinearLayoutManager(this);
 
         myAdapter = new MyAdapterRecyclerCardView(movies, R.layout.recycler_card_view, this);

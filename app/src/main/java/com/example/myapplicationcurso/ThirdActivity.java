@@ -32,9 +32,6 @@ public class ThirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
-        //Activar flecha de retorceso
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         editTextPhone = findViewById(R.id.editTextPhone);
         editTextWeb = findViewById(R.id.editTextWeb);
         imageButtonPhone = findViewById(R.id.imageButtonPhone);

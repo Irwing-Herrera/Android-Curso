@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context=".RecyclerCardView.RecyclerCardActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMovies"
         android:layout_width="match_parent"
