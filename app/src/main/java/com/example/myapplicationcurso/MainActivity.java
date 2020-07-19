@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,18 +22,26 @@ import android.widget.Toast;
 
 import com.example.myapplicationcurso.BoardApp.Activities.BoardActivity;
 import com.example.myapplicationcurso.CardView.CardViewActivity;
+import com.example.myapplicationcurso.DrawerNavigation.Fragments.AlertsFragment;
+import com.example.myapplicationcurso.DrawerNavigation.Fragments.EmailFragment;
+import com.example.myapplicationcurso.DrawerNavigation.Fragments.InfoFragment;
 import com.example.myapplicationcurso.ListView.ListViewActivity;
 import com.example.myapplicationcurso.Login.LoginActivity;
+import com.example.myapplicationcurso.Map.MapsActivity;
 import com.example.myapplicationcurso.MyFragments.Activities.MyFragmentsActivity;
 import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
 import com.example.myapplicationcurso.Tabs.Activities.TabsActivity;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
 
     private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
     private Button btnToast;
     private Button btnViewThird;
     private Button btnGridView;
@@ -41,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnRealm;
     private Button btnFragments;
     private Button btnTabs;
+    private Button btnGoogleMaps;
 
-    private final String TEXTFROMFIRSTVIEW = "Hola desde primera vista";
+    private final String TEXT_FROM_FIRST_VIEW = "Hola desde primera vista";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-
-        // agregar icon a actionBar
-        //getSupportActionBar().setDisplayShowCustomEnabled(true);
-        //getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        _setToolbar();
+        _setDrawerLayout();
+        _setNavigationView();
+        _setFragmentByDefault();
 
         Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         System.out.println("onCreate");
@@ -149,11 +158,78 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnGoogleMaps = findViewById(R.id.btnGoogleMaps);
+        btnGoogleMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void _setNavigationView() {
+        navigationView = findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                boolean fragmentTransaction = false;
+                Fragment fragment = null;
+
+                switch (item.getItemId()) {
+                    case R.id.menu_email:
+                        fragment = new EmailFragment();
+                        fragmentTransaction = true;
+                        break;
+                    case R.id.menu_alert:
+                        fragment = new AlertsFragment();
+                        fragmentTransaction = true;
+                        break;
+                    case R.id.menu_info:
+                        fragment = new InfoFragment();
+                        fragmentTransaction = true;
+                        break;
+                }
+
+                if (fragmentTransaction) {
+                    _onOpenFramentWgithDreawer(fragment, item);
+                    drawerLayout.closeDrawers();
+                }
+
+                return false;
+            }
+        });
+    }
+
+    private void _setFragmentByDefault() {
+        _onOpenFramentWgithDreawer(new EmailFragment(), navigationView.getMenu().getItem(0));
+    }
+
+    private void _onOpenFramentWgithDreawer(Fragment fragment, MenuItem item ) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+        item.setChecked(true);
+        getSupportActionBar().setTitle(item.getTitle());
+    }
+
+    private void _setDrawerLayout() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+    }
+
+    private void _setToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void showToast(View view) {
         Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra("textView", TEXTFROMFIRSTVIEW);
+        intent.putExtra("textView", TEXT_FROM_FIRST_VIEW);
         startActivityForResult(intent, 1);
     }
 
@@ -184,6 +260,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_forget_logout:
                 _removeSharedPreferences();
                 _logOut();
+                return true;
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
