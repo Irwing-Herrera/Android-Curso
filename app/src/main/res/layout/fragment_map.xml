@@ -21,6 +21,9 @@
         android:src="@mipmap/ic_add_icon_fab"
         android:focusable="true"
         android:backgroundTint="@color/colorPrimary"
-        app:borderWidth="0dp"/>
+        android:layout_gravity="bottom|start"
+        android:layout_margin="16dp"
+        app:borderWidth="0dp"
+        tools:targetApi="lollipop" />
 
 </FrameLayout>
