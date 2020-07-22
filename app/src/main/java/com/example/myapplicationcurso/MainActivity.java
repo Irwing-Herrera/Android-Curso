@@ -29,7 +29,7 @@ import com.example.myapplicationcurso.ListView.ListViewActivity;
 import com.example.myapplicationcurso.Login.LoginActivity;
 import com.example.myapplicationcurso.Map.MapsActivity;
 import com.example.myapplicationcurso.MyFragments.Activities.MyFragmentsActivity;
-import com.example.myapplicationcurso.Notifications.NotificationActivity;
+import com.example.myapplicationcurso.Notifications.Activities.NotificationActivity;
 import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
 import com.example.myapplicationcurso.Services.Activities.HttpActivity;
