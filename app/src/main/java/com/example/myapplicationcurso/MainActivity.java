@@ -29,8 +29,10 @@ import com.example.myapplicationcurso.ListView.ListViewActivity;
 import com.example.myapplicationcurso.Login.LoginActivity;
 import com.example.myapplicationcurso.Map.MapsActivity;
 import com.example.myapplicationcurso.MyFragments.Activities.MyFragmentsActivity;
+import com.example.myapplicationcurso.Notifications.NotificationActivity;
 import com.example.myapplicationcurso.RecyclerCardView.RecyclerCardActivity;
 import com.example.myapplicationcurso.RecyclerView.RecyclerActivity;
+import com.example.myapplicationcurso.Services.Activities.HttpActivity;
 import com.example.myapplicationcurso.Tabs.Activities.TabsActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnFragments;
     private Button btnTabs;
     private Button btnGoogleMaps;
+    private Button btnHttpServices;
+    private Button btnNotification;
 
     private final String TEXT_FROM_FIRST_VIEW = "Hola desde primera vista";
 
@@ -167,6 +171,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnHttpServices = findViewById(R.id.btnHttpServices);
+        btnHttpServices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HttpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnNotification = findViewById(R.id.btnNotification);
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void _setNavigationView() {
