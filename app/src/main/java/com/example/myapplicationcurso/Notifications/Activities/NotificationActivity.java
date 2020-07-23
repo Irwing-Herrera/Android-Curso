@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplicationcurso.Notifications.NotificationHandler;
@@ -33,14 +34,22 @@ public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.switchImportance)
     Switch switchImportance;
 
+    @BindView(R.id.textViewIntentTitle)
+    TextView textViewIntentTitle;
+    @BindView(R.id.textViewIntentMessage)
+    TextView textViewIntentMessage;
+
     private boolean isHighImportance = false;
     private NotificationHandler notificationHandler;
+
+    private int _counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         ButterKnife.bind(this);
+        _setIntentValues();
 
         notificationHandler = new NotificationHandler(this);
         _getToolbar();
@@ -63,7 +72,8 @@ public class NotificationActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(message)) {
             Notification.Builder builder = notificationHandler.createNotification(title,message,isHighImportance);
-            notificationHandler.getManager().notify(1,builder.build());
+            notificationHandler.getManager().notify(++_counter,builder.build());
+            notificationHandler.publishNotificationSummaryGroup(isHighImportance);
         }
 
     }
@@ -73,5 +83,12 @@ public class NotificationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    private void _setIntentValues() {
+        if (getIntent() != null) {
+            textViewIntentTitle.setText(getIntent().getStringExtra("title"));
+            textViewIntentMessage.setText(getIntent().getStringExtra("message"));
+        }
     }
 }
